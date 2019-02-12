@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :foods, only: [:index]
-      resources :reactions, only: [:index]
+      resources :foods, only: [:index, :create, :update]
+      resources :reactions, only: [:index, :create, :update]
     end
   end
 end
