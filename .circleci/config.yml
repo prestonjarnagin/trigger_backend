@@ -1,2 +1,5 @@
 version: 2.0
 jobs:
+  - run:
+      name: Tests
+      command: bundle exec rspec
