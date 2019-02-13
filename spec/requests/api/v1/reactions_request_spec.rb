@@ -6,9 +6,9 @@ RSpec.describe '/api/v1/reactions' do
   let(:headers)  {{ 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }}
 
   describe 'GET' do
-    xit 'returns all reaction records' do
-      Food.create(name: "hot dog")
-      Food.create(name: "coffee")
+    it 'returns all reaction records' do
+      Reaction.create(name: "Headache")
+      Reaction.create(name: "Upset Stomach")
 
       get endpoint
 

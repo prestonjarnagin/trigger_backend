@@ -3,7 +3,8 @@ require 'pry'
 class Api::V1::ReactionsController < ApplicationController
 
   def index
-
+    reactions = Reaction.all
+    render json: ReactionSerializer.new(reactions)
   end
 
   def create
