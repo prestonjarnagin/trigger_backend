@@ -11,8 +11,12 @@ RSpec.describe '/api/v1/foods' do
 
   describe 'POST' do
     it 'creates a food record' do
-      params = { token: 0 }
-      # post(endpoint, {params: params.to_json}, headers)
+      name = "Hot Dog"
+      post "#{endpoint}?name=#{name}"
+      expect(response.status).to eq(201)
+
+      status = JSON.parse(response.body)['status']
+      expect(status).to eq("Created Hot Dog")
     end
   end
 
