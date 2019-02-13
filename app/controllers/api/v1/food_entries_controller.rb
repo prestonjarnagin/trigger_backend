@@ -8,9 +8,8 @@ class Api::V1::FoodEntriesController < ApplicationController
 
   def create
     food = Food.find(params[:food_id])
-    time = DateTime.strptime(params[:created_at],'%s')
-    if food.food_entries.create(created_at: time)
-      render json: {'status': "Created #{food.name} entry at #{params[:created_at]}"},status: 201
+    if food.food_entries.create(time: params[:time])
+      render json: {'status': "Created #{food.name} entry at #{params[:time]}"},status: 201
     else
       render status: 400
     end
