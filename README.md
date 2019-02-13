@@ -1,5 +1,9 @@
 # README
 
+#### SCHEMA DESIGN
+
+![alt text](https://raw.githubusercontent.com/prestonjarnagin/trigger_backend/master/schema_design.png)
+
 #### GET api/v1/foods
 
 Returns all foods in the database.
@@ -30,11 +34,13 @@ GET api/v1/foods
 
 #### POST api/v1/foods?name="string"
 
-Adds new food to database. Takes in params of name.
+Adds new food to database. Takes in body that contains the name.
 
 ex:
 
-POST api/v1/foods?name=Hot Dog
+POST api/v1/foods
+
+body: {name: "Hot Dog"}
 
 ```
 {
@@ -72,11 +78,13 @@ GET api/v1/reactions
 ```
 #### POST api/v1/reactions?name="string"
 
-Adds new reaction to database. Takes in params of name.
+Adds new reaction to database. Takes in body that contains the name.
 
 ex:
 
-POST api/v1/reactions?name=Headache
+POST api/v1/reactions
+
+body: {name: "Headache"}
 
 ```
 {
