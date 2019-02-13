@@ -1,24 +1,86 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### GET api/v1/foods
 
-Things you may want to cover:
+Returns all foods in the database.
 
-* Ruby version
+ex:
 
-* System dependencies
+GET api/v1/foods
+```
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "food",
+            "attributes": {
+                "name": "Coffee"
+            }
+        },
+        {
+            "id": "2",
+            "type": "food",
+            "attributes": {
+                "name": "Hot Dog"
+            }
+        }
+    ]
+}
+```
 
-* Configuration
+#### POST api/v1/foods?name="string"
 
-* Database creation
+Adds new food to database. Takes in params of name.
 
-* Database initialization
+ex:
 
-* How to run the test suite
+POST api/v1/foods?name=Hot Dog
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+{
+    "status": "Created Hot Dog"
+}
 
-* Deployment instructions
+```
 
-* ...
+#### GET api/v1/reactions
+
+Returns all reactions in the database.
+
+ex:
+
+GET api/v1/reactions
+```
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "reaction",
+            "attributes": {
+                "name": "Headache"
+            }
+        },
+        {
+            "id": "2",
+            "type": "reaction",
+            "attributes": {
+                "name": "Upset Stomach"
+            }
+        }
+    ]
+}
+```
+#### POST api/v1/reactions?name="string"
+
+Adds new reaction to database. Takes in params of name.
+
+ex:
+
+POST api/v1/reactions?name=Headache
+
+```
+{
+    "status": "Created Headache"
+}
+
+```
