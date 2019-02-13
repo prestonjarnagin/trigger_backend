@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe '/api/v1/foods' do
 
@@ -6,8 +7,18 @@ RSpec.describe '/api/v1/foods' do
   let(:headers)  {{ 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }}
 
   describe 'GET' do
+    it 'returns all food records' do
+      Food.create(name: "hot dog")
+      Food.create(name: "coffee")
+
+      get endpoint
+
+      data = JSON.parse(response.body)["data"]
+      expect(data.length).to eq(2)
+    end
 
   end
+
 
   describe 'POST' do
     it 'creates a food record' do
