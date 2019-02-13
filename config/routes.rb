@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :foods, only: [:index, :create, :update]
       resources :reactions, only: [:index, :create, :update]
+      resources :reaction_entries, only: [:index]
     end
   end
 end
