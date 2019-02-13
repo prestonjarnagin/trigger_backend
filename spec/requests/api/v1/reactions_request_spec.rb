@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe '/api/v1/foods' do
+RSpec.describe '/api/v1/reactions' do
 
-  let(:endpoint) { '/api/v1/foods' }
+  let(:endpoint) { '/api/v1/reactions' }
   let(:headers)  {{ 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }}
 
   describe 'GET' do
-    it 'returns all food records' do
+    xit 'returns all reaction records' do
       Food.create(name: "hot dog")
       Food.create(name: "coffee")
 
@@ -20,14 +20,14 @@ RSpec.describe '/api/v1/foods' do
 
 
   describe 'POST' do
-    it 'creates a food record' do
-      name = "Hot Dog"
+    it 'creates a reaction record' do
+      name = "Headache"
       post "#{endpoint}?name=#{name}"
       expect(response.status).to eq(201)
 
       status = JSON.parse(response.body)['status']
-      expect(status).to eq("Created Hot Dog")
-      expect(Food.count).to eq(1)
+      expect(status).to eq("Created Headache")
+      expect(Reaction.count).to eq(1)
     end
   end
 
