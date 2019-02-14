@@ -6,14 +6,6 @@ class Api::V1::ReactionsController < ApplicationController
     render json: ReactionSerializer.new(reactions)
   end
 
-  # def create
-  #   if Reaction.create(name: params["name"])
-  #     render status: 201, json:{"status": "Created #{params["name"]}"}
-  #   else
-  #     render status: 400
-  #   end
-  # end
-
   def create
     reaction = Reaction.new(name: params[:name])
     if reaction.save
