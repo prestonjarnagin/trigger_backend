@@ -1,7 +1,7 @@
 # README
 
 #### SCHEMA DESIGN
-
+NOTE: Needs to add time to food_entry and reaction_entry tables
 ![alt text](https://raw.githubusercontent.com/prestonjarnagin/trigger_backend/master/schema_design.png)
 
 #### GET api/v1/foods
