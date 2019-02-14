@@ -13,7 +13,7 @@ class Api::V1::FoodsController < ApplicationController
       render json: {'status': "params are empty"}, status: 400
     else
       id = Food.find_by(name: params["name"].downcase.titleize).id
-      render json: {'status': "#{params[:name]} is a duplicate", 'id': id}, status: 400
+      render json: {'status': "#{params[:name]} is a duplicate", 'id': id}, status: 409
     end
   end
 
