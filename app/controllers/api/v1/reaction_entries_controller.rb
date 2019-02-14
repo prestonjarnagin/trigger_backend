@@ -9,10 +9,11 @@ class Api::V1::ReactionEntriesController < ApplicationController
     begin
       re = ReactionEntry.new(reaction_id: params[:reaction_id])
       re.time = params[:time]
-      re.save!
-      render json: {'status': "Entered reaction at #{params[:time]}"}, status: 201
-    rescue
-      render status: 400
+      if re.save!
+        render json: {'status': "Entered reaction at #{params[:time]}"}, status: 201
+      else
+        render status: 400
+      end
     end
   end
 
