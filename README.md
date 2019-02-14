@@ -101,7 +101,7 @@ ex:
 GET api/v1/reaction_entries
 
 RESPONSE:
-=======
+
 #### GET api/v1/food_entries
 
 Returns all food entries in the database.
@@ -238,7 +238,7 @@ The time is in UNIX
 
 ex:
 
-POST api/v1/food_entries
+PATCH api/v1/food_entries/:id
 
 body: {food_id: 1, time: 1000000}
 
