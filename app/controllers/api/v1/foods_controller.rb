@@ -6,14 +6,19 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def create
-    if Food.create(name: params[:name])
-      render json: {'status': "Created #{params[:name]}"},status: 201
+    food = Food.new(name: params[:name])
+    if food.save
+      render json: {'status': "Created #{params[:name]}", 'id': food.id},status: 201
+    elsif params[:name] == nil
+      render json: {'status': "params are empty"}, status: 400
     else
-      render status: 400
+      id = Food.find_by(name: params["name"].downcase.titleize).id
+      render json: {'status': "#{params[:name]} is a duplicate", 'id': id}, status: 400
     end
   end
 
   def update
 
   end
+
 end
