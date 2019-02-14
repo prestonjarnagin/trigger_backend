@@ -229,3 +229,22 @@ body: {food_id: 1, time: 1000000}
 
 
 ```
+
+#### PATCH api/v1/food_entries/:id
+
+Updates food entry to the database. Takes in body that contains the time.
+
+The time is in UNIX
+
+ex:
+
+POST api/v1/food_entries
+
+body: {food_id: 1, time: 1000000}
+
+```
+{
+    "status": "Created Headache"
+}
+
+```
