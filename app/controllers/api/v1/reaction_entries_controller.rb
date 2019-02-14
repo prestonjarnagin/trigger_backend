@@ -25,4 +25,13 @@ class Api::V1::ReactionEntriesController < ApplicationController
       render status: 404
     end
   end
+
+  def destroy
+    begin
+      ReactionEntry.find(params[:id]).destroy
+      render status: 202, json: {'status': "Record Deleted"}
+    rescue
+      render status: 404
+    end
+  end
 end
