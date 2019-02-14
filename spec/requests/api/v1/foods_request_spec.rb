@@ -50,7 +50,7 @@ RSpec.describe '/api/v1/foods' do
       hot_dog_id = Food.find_by(name: "Hot Dog").id
       post "#{endpoint}?name=#{name}"
 
-      expect(response.status).to eq(400)
+      expect(response.status).to eq(409)
 
       status = JSON.parse(response.body)['status']
       id = JSON.parse(response.body)['id']
