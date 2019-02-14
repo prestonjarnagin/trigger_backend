@@ -2,8 +2,8 @@
 class Api::V1::FoodEntriesController < ApplicationController
 
   def index
-    # foods = Food.all
-    # render json: FoodSerializer.new(foods)
+    food_entries = FoodEntry.all
+    render json: FoodEntriesSerializer.new(food_entries)
   end
 
   def create
@@ -16,6 +16,11 @@ class Api::V1::FoodEntriesController < ApplicationController
   end
 
   def update
-
+    food_entry = FoodEntry.find(params[:id])
+    if food_entry.update(time: params[:time])
+      render json: {'status': "Updated food entry #{food_entry.id} time to #{food_entry.time}"},status: 201
+    else
+      render status: 400
+    end
   end
 end
