@@ -23,4 +23,9 @@ class Api::V1::FoodEntriesController < ApplicationController
       render status: 400
     end
   end
+
+  def destroy
+    Food.delete(params[:id])
+    render status: 204, body: ""
+  end
 end
