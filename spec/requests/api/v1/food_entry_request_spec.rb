@@ -52,6 +52,7 @@ RSpec.describe '/api/v1/food_entries' do
 
       expect(status).to eq("Updated food entry #{food_entry.id} time to 7200")
       expect(FoodEntry.count).to eq(1)
+      expect(FoodEntry.find(food_entry.id).time).to eq(7200)
     end
   end
 
