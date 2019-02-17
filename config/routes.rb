@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :foods, only: [:index, :create, :update]
       resources :reactions, only: [:index, :create, :update]
       resources :reaction_entries, only: [:index, :create, :update, :destroy]
-      resources :food_entries, only: [:index, :create, :update]
+      resources :food_entries, only: [:index, :create, :update, :destroy]
 
     end
   end
