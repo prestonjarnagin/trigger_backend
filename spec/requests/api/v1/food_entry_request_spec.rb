@@ -57,11 +57,11 @@ RSpec.describe '/api/v1/food_entries' do
 
   describe 'DELETE' do
     it 'deletes a food entry record' do
+      food = Food.create(name: "Hot Dog")
+      food_entry = FoodEntry.create(food_id: food.id)
+      delete "#{endpoint}/#{food_entry.id}"
 
-      food = Food.create(name: 'Hot Dog')
-      delete "#{endpoint}/#{food.id}"
-
-      expect(Food.count).to eq(0)
+      expect(FoodEntry.count).to eq(0)
       expect(response).to have_http_status(204)
     end
   end
