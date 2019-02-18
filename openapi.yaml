@@ -1,0 +1,660 @@
+openapi: 3.0.0
+info:
+  title: Trigger
+  description: This is API documentation for the Trigger backend service
+  version: 1.0.0-oas3
+servers:
+- url: trigger-backend.herokuapp.com/api/v1
+  description: The production server
+- url: trigger-backend-staging.herokuapp.com/api/v1
+  description: The staging server
+tags:
+- name: food
+  description: Access to canonical food records
+- name: reaction
+  description: Access to canonical food records
+- name: food-entry
+  description: Access to records of a food consumtion
+- name: reaction-entry
+  description: Access to records of a reaction occurrence
+- name: informational
+  description: Operations about user
+paths:
+  /foods:
+    get:
+      tags:
+      - food
+      summary: Get the list of food options available
+      description: Returns a list of all the food objects in the database. A 'food' is a sort of reusable template used to create food_entry records. Foods should not be duplicated
+      operationId: getfoods
+      responses:
+        200:
+          description: An array of possible foods
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllFoods'
+    post:
+      tags:
+      - food
+      summary: Add a new type of food
+      operationId: addFood
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Food'
+        required: true
+      responses:
+        201:
+          description: Food successfully added to database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddFoodResponse'
+  /reactions:
+    get:
+      tags:
+      - reaction
+      summary: Get the list of food options available
+      description: Returns a list of all the reaction objects in the database. A 'reaction' is a sort of reusable template used to create reaction_entry records. Reactions should not be duplicated
+      operationId: getReactions
+      responses:
+        200:
+          description: An array of possible reactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllReactions'
+    post:
+      tags:
+      - reaction
+      summary: Add a new type of reaction
+      operationId: addReaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reaction'
+        required: true
+      responses:
+        201:
+          description: Reaction successfully added to database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddReactionResponse'
+  /food_entries:
+    get:
+      tags:
+      - food-entry
+      summary: Get the list of food entries
+      description: Returns a list of all the food entries in the database - basically a history of foods that have been consumed
+      operationId: getFoodEntries
+      responses:
+        200:
+          description: An array of food entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllFoodEntries'
+    post:
+      tags:
+      - food-entry
+      summary: Add a new food entry with the time that said entry took place
+      operationId: addFoodEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodEntry'
+        required: true
+      responses:
+        201:
+          description: Food entry successfully added to database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddFoodEntryResponse'
+  /reaction_entries:
+    get:
+      tags:
+      - reaction-entry
+      summary: Get the list of reaction entries
+      description: Returns a list of all the reaction entries in the database - basically a history of reactions that have taken place
+      operationId: getReactionEntries
+      responses:
+        200:
+          description: An array of reaction entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllReactionEntries'
+    post:
+      tags:
+      - reaction-entry
+      summary: Create a new reaction entry
+      operationId: postReactionEntries
+      responses:
+        201:
+          description: Reaction entry sucessfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+  /day_summary:
+    get:
+      tags:
+      - informational
+      summary: Returns a chronologically ordered list of all food_entries and reaction_entries for a given date
+      operationId: daySummary
+      parameters:
+      - name: unix_timestamp
+        in: path
+        description: A UNIX timestamp is required in parameters to define the desired day of records to return. The timestamp can be anyere within the bounds of a day and still work - IE, 1:20PM, 4:35AM, or 11:59PM would all return the same results (these would al need to be converted to UNIX time though)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Request successful
+          content:
+            applciation/json:
+              schema:
+                $ref: '#/components/schemas/DaySummary'
+  /reactions/{id}:
+    get:
+      tags:
+      - reaction
+      parameters:
+      - name: id
+        in: path
+        description: Adding a reaction id to the parameters in the request path will return a single reaction with statistical data
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: id
+      responses:
+        200:
+          description: Query completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleReaction'
+  /reaction_entries/{id}:
+    put:
+      tags:
+      - reaction-entry
+      parameters:
+      - name: id
+        in: path
+        description: The id of the reaction entry to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: id
+      responses:
+        201:
+          description: Reaction entry updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_1'
+    delete:
+      tags:
+      - reaction-entry
+      parameters:
+      - name: id
+        in: path
+        description: The id of the reaction entry to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: id
+      responses:
+        204:
+          description: Reaction entry deleted successfully
+  /food_entry/{id}:
+    put:
+      tags:
+      - food-entry
+      summary: Update the timestamp on a food entry
+      operationId: updateFoodEntry
+      parameters:
+      - name: id
+        in: path
+        description: The id of the reaction entry to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body'
+        required: true
+      responses:
+        200:
+          description: Food entry updated successfully
+    delete:
+      tags:
+      - food-entry
+      summary: Delete the specified food entry
+      parameters:
+      - name: id
+        in: path
+        description: The id of the reaction entry to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: id
+      responses:
+        204:
+          description: Reaction entry deleted successfully
+components:
+  schemas:
+    AllFoods:
+      type: object
+      properties:
+        data:
+          type: array
+          example:
+          - id: 1
+            type: food
+            attributes:
+              name: Coffee
+          - id: 2
+            type: food
+            attributes:
+              name: Sandwich
+          - id: 3
+            type: food
+            attributes:
+              name: Beer
+          - id: 4
+            type: food
+            attributes:
+              name: Hot Dog
+          items:
+            $ref: '#/components/schemas/AllFoods_data'
+    AllReactions:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllReactions_data'
+    Food:
+      properties:
+        name:
+          type: string
+          description: Food Name
+          example: Hot Dog
+    AddFoodResponse:
+      properties:
+        status:
+          type: string
+          description: A message confirming creation
+          example: Created Hot Dog
+        id:
+          type: integer
+          description: The id of the newly created food
+          format: int32
+          example: 4
+    Reaction:
+      properties:
+        name:
+          type: string
+          description: Reaction Name
+          example: Headache
+    AddReactionResponse:
+      properties:
+        status:
+          type: string
+          description: A message confirming creation
+          example: Created Headache
+        id:
+          type: integer
+          description: The id of the newly created reaction
+          format: int32
+          example: 1
+    FoodEntry:
+      type: object
+      properties:
+        food_id:
+          type: integer
+          format: int32
+          example: 4
+        time:
+          type: integer
+          description: a UNIX timestamp as to when the food took place
+          format: int32
+          example: 1550353043
+    ReactionEntry:
+      type: object
+      properties:
+        reaction_id:
+          type: integer
+          format: int32
+          example: 4
+        time:
+          type: integer
+          description: a UNIX timestamp as to when the food took place
+          format: int32
+          example: 1550353043
+    AddFoodEntryResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Created Coffee entry at 1550353043
+    AddReactionEntryResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Created reaction at 1550353043
+    AllFoodEntries:
+      type: object
+      properties:
+        data:
+          type: array
+          example:
+          - id: 1
+            type: food
+            attributes:
+              name: Coffee
+          - id: 2
+            type: food
+            attributes:
+              name: Sandwich
+          - id: 3
+            type: food
+            attributes:
+              name: Beer
+          - id: 4
+            type: food
+            attributes:
+              name: Hot Dog
+          items:
+            $ref: '#/components/schemas/AllFoodEntries_data'
+    AllReactionEntries:
+      type: object
+      properties:
+        data:
+          type: array
+          example:
+          - id: 1
+            type: reaction_entry
+            attributes:
+              reaction_id: 1
+              time: 1550253043
+          - id: 2
+            type: reaction_entry
+            attributes:
+              reaction_id: 1
+              time: 1550353043
+          - id: 3
+            type: reaction_entry
+            attributes:
+              reaction_id: 2
+              time: 1550153043
+          - id: 4
+            type: reaction_entry
+            attributes:
+              reaction_id: 6
+              time: 1550053043
+          items:
+            $ref: '#/components/schemas/AllReactionEntries_data'
+    DaySummary:
+      type: object
+      properties:
+        data:
+          type: array
+          example:
+          - id: "1"
+            type: day_summary
+            attributes:
+              time: 1550179195
+              type: reaction
+              name: Upset Stomach
+          - id: "38"
+            type: day_summary
+            attributes:
+              time: 1550179195
+              type: reaction
+              name: Upset Stomach
+          - id: "39"
+            type: day_summary
+            attributes:
+              time: 1550179195
+              type: reaction
+              name: Upset Stomach
+          items:
+            $ref: '#/components/schemas/DaySummary_data'
+    SingleReaction:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the requested reaction
+        foods:
+          type: array
+          description: An array of food records that are associated with the requested reaction
+          items:
+            $ref: '#/components/schemas/SingleReaction_foods'
+        occurences:
+          $ref: '#/components/schemas/SingleReaction_occurences'
+      example:
+        name: Upset Stomach
+        foods:
+        - id: 1
+          name: Coffee
+          frequency: 0.5
+        - id: 2
+          name: Hot Dog
+          frequency: 1
+        - id: 3
+          name: Hot Sauce
+          frequency: 1
+        - id: 43
+          name: Rice
+          frequency: 1
+        - id: 41
+          name: Berries
+          frequency: 0.5
+        - id: 44
+          name: Rise
+          frequency: 1
+        - id: 46
+          name: Beans
+          frequency: 1
+        - id: 58
+          name: Patatas
+          frequency: 1
+        - id: 59
+          name: Bread
+          frequency: 1
+        - id: 53
+          name: Cherries
+          frequency: 0.33
+        - id: 60
+          name: Feelings Hurt
+          frequency: 1
+        - id: 61
+          name: Prunes
+          frequency: 1
+        - id: 62
+          name: Cereal
+          frequency: 1
+        - id: 63
+          name: Muffins
+          frequency: 1
+        - id: 64
+          name: Cake
+          frequency: 1
+        - id: 65
+          name: Pie
+          frequency: 1
+        - id: 66
+          name: Cookies
+          frequency: 1
+        - id: 67
+          name: Soup
+          frequency: 1
+        - id: 68
+          name: Peas
+          frequency: 1
+        - id: 69
+          name: Carrots
+          frequency: 1
+        - id: 70
+          name: Milk
+          frequency: 1
+        - id: 4
+          name: Shellfish
+          frequency: 1
+        - id: 52
+          name: Orange
+          frequency: 0.14
+        occurences:
+          last_7_days: 5
+          last_15_days: 5
+          last_30_days: 5
+          last_31_to_60_days: 0
+    inline_response_201:
+      type: object
+      properties:
+        reaction_id:
+          type: integer
+          format: int32
+          example: 5
+        time:
+          type: integer
+          format: int32
+          example: 1550353043
+    inline_response_201_1:
+      type: object
+      properties:
+        status:
+          type: string
+      example: '{"status":"Updated food entry 4 time to 1550353043"}'
+    body:
+      type: object
+      properties:
+        time:
+          type: integer
+          description: A UNIX timestamp representing the new time
+          format: int32
+      example:
+        time: 1550179195
+    AllFoods_data:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Food Name
+    AllReactions_data:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Food Name
+      example: '[{"id":1,"type":"reaction","attributes":{"name":"Headache"}},{"id":2,"type":"reaction","attributes":{"name":"Upset
+        Stomach"}},{"id":3,"type":"reaction","attributes":{"name":"Blurred Vision"}},{"id":4,"type":"reaction","attributes":{"name":"Dizziness"}}]'
+    AllFoodEntries_data:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Food Entry ID
+          format: int32
+        type:
+          type: string
+          description: Resource type
+        attributes:
+          type: object
+          description: A key-value store of food entry properties
+    AllReactionEntries_data:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Reaction Entry ID
+          format: int32
+        type:
+          type: string
+          description: Resource type
+        attributes:
+          type: object
+          description: A key-value store of reaction entry properties
+    DaySummary_attributes:
+      type: object
+      properties:
+        time:
+          type: integer
+          format: int32
+        type:
+          type: string
+        name:
+          type: string
+      description: A key-value store of reaction entry properties
+    DaySummary_data:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The resource ID. Can be duplicated since this endpoint returns multiple kinds of resources simultaneously
+          format: int32
+        type:
+          type: string
+          description: Resource type
+        attributes:
+          $ref: '#/components/schemas/DaySummary_attributes'
+    SingleReaction_foods:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of the food
+          format: int32
+        name:
+          type: string
+          description: The name of the food
+        frequency:
+          type: number
+          description: The correlation strength between the reaction and this food. Ranges from 0.01 to 1.0. Foods that score a 0 do not get returned. Calculated by dividing the number of times a food has been eaten within a 24 hour window prior to a reaction and the number of times that food has ever been eaten.
+          format: float
+    SingleReaction_occurences:
+      type: object
+      properties:
+        last_7_days:
+          type: integer
+          description: The number of times this reaction has occured in the past 7 days
+          format: int32
+        last_15_days:
+          type: integer
+          description: The number of times this reaction has occured in the past 15 days
+          format: int32
+        last_30_days:
+          type: integer
+          description: The number of times this reaction has occured in the past 30 days
+          format: int32
+        last_31_to_60_days:
+          type: integer
+          description: The number of times this reaction has occured in in the range 60 days ago to 31 days ago. Acts as a 'last month' calculation
+          format: int32
