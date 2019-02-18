@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get '/day_summary', to: 'day_summary#show'
 
       resources :foods, only: [:index, :create, :update]
-      resources :reactions, only: [:index, :create, :update]
+      resources :reactions, only: [:index, :create, :update, :show]
       resources :reaction_entries, only: [:index, :create, :update, :destroy]
       resources :food_entries, only: [:index, :create, :update, :destroy]
 
