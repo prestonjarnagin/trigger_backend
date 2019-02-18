@@ -18,7 +18,9 @@ class Api::V1::ReactionsController < ApplicationController
     end
   end
 
-  def update
-
+  def show
+    reaction = Reaction.find(params[:id])
+    reaction = {name: reaction.name, foods: reaction.foods, occurences: reaction.occurences}
+    render json: ReactionSummarySerializer.new(reaction).json
   end
 end
