@@ -64,7 +64,7 @@ RSpec.describe '/api/v1/reaction_entries' do
       expect(ReactionEntry.first.time).to eq(timestamp)
       expect(ReactionEntry.first.reaction_id).to eq(reaction_2.id)
       status = JSON.parse(response.body)['status']
-      expect(status).to include("Record Updated")
+      expect(status).to include("Updated Reaction Entry")
     end
 
     it 'updates a reaction entry record with just a time' do
@@ -85,7 +85,7 @@ RSpec.describe '/api/v1/reaction_entries' do
       expect(ReactionEntry.first.time).to eq(timestamp)
       expect(ReactionEntry.first.reaction_id).to eq(reaction.id)
       status = JSON.parse(response.body)['status']
-      expect(status).to include("Record Updated")
+      expect(status).to include("Updated Reaction Entry")
     end
 
     it 'updates a reaction entry record with just a food_id' do
@@ -106,7 +106,7 @@ RSpec.describe '/api/v1/reaction_entries' do
       expect(ReactionEntry.first.time).to eq(timestamp)
       expect(ReactionEntry.first.reaction_id).to eq(reaction_2.id)
       status = JSON.parse(response.body)['status']
-      expect(status).to include("Record Updated")
+      expect(status).to include("Updated Reaction Entry")
     end
   end
 
