@@ -36,6 +36,7 @@ RSpec.describe '/api/v1/food_entries' do
 
       expect(status).to eq("Created Hot Dog entry at 3600")
       expect(FoodEntry.count).to eq(1)
+      expect(FoodEntry.first.time).to eq (3600)
     end
 
     it 'rejects a food entry record with non integer time' do
