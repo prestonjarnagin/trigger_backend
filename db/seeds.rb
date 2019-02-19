@@ -63,7 +63,8 @@ re_2_7 = ReactionEntry.create(reaction_id: reaction_2.id, time: 1_547_186_894)
 re_2_8 = ReactionEntry.create(reaction_id: reaction_2.id, time: 1_550_642_999)
 
 #Jan 13 2019
-fe_5_1 = FoodEntry.create(food_id: food_5.id, time: 1_547_402_000)
+fe_5_1 = FoodEntry.create(food_id: food_5.id, time: 1547362800)
+fe_5_1b = FoodEntry.create(food_id: food_5.id, time: 1547337600)
 #Feb 2 2019
 fe_5_2 = FoodEntry.create(food_id: food_5.id, time: 1_549_087_600)
 #Feb 18 2018 - note: DONT WANT THIS TO SHOW UP SO WE USE 2018
