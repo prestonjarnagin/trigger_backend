@@ -21,7 +21,7 @@ class Api::V1::FoodEntriesController < ApplicationController
     if food_entry.update(time: params[:time])
       render json: {'status': "Updated food entry #{food_entry.id} time to #{food_entry.time}"},status: 201
     else
-      render status: 400
+      render raw: "", status: 400
     end
   end
 
