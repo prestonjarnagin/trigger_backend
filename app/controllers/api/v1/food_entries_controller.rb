@@ -8,10 +8,11 @@ class Api::V1::FoodEntriesController < ApplicationController
 
   def create
     food = Food.find(params[:food_id])
-    if food.food_entries.create(time: params[:time])
+    fe = food.food_entries.new(time: params[:time])
+    if fe.save
       render json: {'status': "Created #{food.name} entry at #{params[:time]}"},status: 201
     else
-      render status: 400
+      render json: {'status': "Invalid entry"}, status: 400
     end
   end
 
