@@ -50,19 +50,54 @@ RSpec.describe '/api/v1/food_entries' do
   end
 
   describe 'PATCH' do
-    it 'updates a food entry record' do
+    it 'updates an entire food entry record' do
+      food_1 = Food.create(name: "Hot Dog")
+      food_2 = Food.create(name: "Coffee")
+      time = 3600
+      new_time = 7200
+      food_entry = food_1.food_entries.create(time: time, food_id: food_1.id)
+
+      patch "#{endpoint}/#{food_entry.id}?time=#{new_time}&food_id=#{food_2.id}"
+      expect(response.status).to eq(201)
+
+      status = JSON.parse(response.body)["status"]
+
+      expect(status).to eq("Updated food entry")
+      expect(FoodEntry.count).to eq(1)
+      expect(FoodEntry.find(food_entry.id).time).to eq(7200)
+    end
+
+    it 'updates a food entrys time' do
       food_1 = Food.create(name: "Hot Dog")
       time = 3600
       new_time = 7200
       food_entry = food_1.food_entries.create(time: time, food_id: food_1.id)
+
       patch "#{endpoint}/#{food_entry.id}?time=#{new_time}"
       expect(response.status).to eq(201)
 
       status = JSON.parse(response.body)["status"]
 
-      expect(status).to eq("Updated food entry #{food_entry.id} time to 7200")
+      expect(status).to eq("Updated food entry")
       expect(FoodEntry.count).to eq(1)
       expect(FoodEntry.find(food_entry.id).time).to eq(7200)
+    end
+
+    it 'updates a food entrys food_id' do
+      food_1 = Food.create(name: "Hot Dog")
+      food_2 = Food.create(name: "Coffee")
+      time = 3600
+      food_entry = food_1.food_entries.create(time: time, food_id: food_1.id)
+
+      patch "#{endpoint}/#{food_entry.id}?food_id=#{food_2.id}"
+      expect(response.status).to eq(201)
+
+      status = JSON.parse(response.body)["status"]
+
+      expect(status).to eq("Updated food entry")
+      expect(FoodEntry.count).to eq(1)
+      expect(FoodEntry.first.food_id).to eq(food_2.id)
+      expect(FoodEntry.first.time).to eq(3600)
     end
   end
 
