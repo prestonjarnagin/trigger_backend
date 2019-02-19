@@ -1,4 +1,5 @@
 # Trigger Backend
+[![Maintainability](https://api.codeclimate.com/v1/badges/e20e946107d86caff2e0/maintainability)](https://codeclimate.com/github/prestonjarnagin/trigger_backend/maintainability)
 This is the backend portion Trigger - a capstone project at Turing School of Software and Design. It's designed to interface with the [Trigger front-end application](https://github.com/Diazblack/trigger)
 
 - A production version of this application can be found at http://herokuapp.com/trigger-backend.
