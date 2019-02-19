@@ -22,4 +22,5 @@ reaction_1 = Reaction.create(name: "Headache")
 reaction_2 = Reaction.create(name: "Stomach Ache")
 reaction_3 = Reaction.create(name: "Drowzy")
 
-re_1 = ReactionEntry.create(reaction_id: reaction_1.id, time: 1_547_402_894_000)
+re_1 = ReactionEntry.create(reaction_id: reaction_1.id, time: 1_547_402_894)
+re_2 = ReactionEntry.create(reaction_id: reaction_1.id, time: 1_547_532_494)
