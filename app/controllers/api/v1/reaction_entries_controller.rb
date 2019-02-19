@@ -20,7 +20,7 @@ class Api::V1::ReactionEntriesController < ApplicationController
   def update
     if ReactionEntry.find(params[:id])
       entry = ReactionEntry.find(params[:id])
-      entry.update!(time: params[:time])
+      entry.update!(reaction_entry_params)
       render status: 202, json: {'status': "Record Updated"}
     else
       render status: 404
@@ -34,5 +34,11 @@ class Api::V1::ReactionEntriesController < ApplicationController
     rescue
       render status: 404
     end
+  end
+
+  private
+
+  def reaction_entry_params
+    params.permit(:reaction_id, :time)
   end
 end
