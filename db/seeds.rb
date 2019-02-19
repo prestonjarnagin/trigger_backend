@@ -84,3 +84,19 @@ fe_1_4 = FoodEntry.create(food_id: food_1.id, time: 1_518_674_894)
 fe_1_5 = FoodEntry.create(food_id: food_1.id, time: 1_550_383_000)
 #Feb 20 2019
 fe_1_6 = FoodEntry.create(food_id: food_1.id, time: 1_550_642_894)
+
+
+
+fe_3_6 = FoodEntry.create(food_id: food_3.id, time: 1_550_646_494)
+fe_4_6 = FoodEntry.create(food_id: food_4.id, time: 1_550_649_600)
+fe_6_6 = FoodEntry.create(food_id: food_6.id, time: 1_550_674_800)
+
+#coffee entries
+date = 1_546_354_800 #Jan 1 2019
+n= 0
+seconds_in_a_day = 86_400
+while (n<60)
+  FoodEntry.create(food_id: food_2.id, time: date)
+  date += seconds_in_a_day
+  n +=1
+end
