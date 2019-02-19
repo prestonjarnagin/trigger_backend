@@ -37,6 +37,16 @@ RSpec.describe '/api/v1/food_entries' do
       expect(status).to eq("Created Hot Dog entry at 3600")
       expect(FoodEntry.count).to eq(1)
     end
+
+    it 'rejects a food entry record with non integer time' do
+      food = Food.create(name: "Hot Dog")
+      id = food.id
+      time = "123abc"
+      post "#{endpoint}?food_id=#{id}&time=#{time}"
+
+      expect(response.status).to eq(400)
+      expect(ReactionEntry.count).to eq(0)
+    end
   end
 
   describe 'PATCH' do
@@ -59,7 +69,7 @@ RSpec.describe '/api/v1/food_entries' do
   describe 'DELETE' do
     it 'deletes a food entry record' do
       food = Food.create(name: "Hot Dog")
-      food_entry = FoodEntry.create(food_id: food.id)
+      food_entry = FoodEntry.create(food_id: food.id, time: 3600)
       delete "#{endpoint}/#{food_entry.id}"
 
       expect(FoodEntry.count).to eq(0)
