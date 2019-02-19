@@ -21,7 +21,7 @@ class Api::V1::ReactionEntriesController < ApplicationController
     if ReactionEntry.find(params[:id])
       entry = ReactionEntry.find(params[:id])
       entry.update!(reaction_entry_params)
-      render status: 202, json: {'status': "Updated reaction entry"}
+      render status: 202, json: {'status': "Updated Reaction Entry"}
     else
       render status: 404
     end
