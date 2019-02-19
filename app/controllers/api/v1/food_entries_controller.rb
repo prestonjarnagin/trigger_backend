@@ -18,10 +18,10 @@ class Api::V1::FoodEntriesController < ApplicationController
 
   def update
     food_entry = FoodEntry.find(params[:id])
-    if food_entry.update(time: params[:time])
-      render json: {'status': "Updated food entry #{food_entry.id} time to #{food_entry.time}"},status: 201
+    if food_entry.update(food_entry_params)
+      render json: {'status': "Updated food entry"},status: 201
     else
-      render status: 400
+      render raw: "", status: 400
     end
   end
 
@@ -33,4 +33,11 @@ class Api::V1::FoodEntriesController < ApplicationController
       render status: 404
     end
   end
+
+  private
+
+  def food_entry_params
+    params.permit(:time, :food_id)
+  end
+
 end
