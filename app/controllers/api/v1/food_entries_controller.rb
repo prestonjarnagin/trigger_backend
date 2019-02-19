@@ -26,7 +26,11 @@ class Api::V1::FoodEntriesController < ApplicationController
   end
 
   def destroy
-    FoodEntry.delete(params[:id])
-    render status: 204, body: ""
+    begin
+      FoodEntry.find(params[:id]).destroy
+      render status: 204, json: {'status': "Record Deleted"}
+    rescue
+      render status: 404
+    end
   end
 end
