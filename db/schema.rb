@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20190213230303) do
     t.bigint "food_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "time"
+    t.bigint "time"
     t.index ["food_id"], name: "index_food_entries_on_food_id"
   end
 
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20190213230303) do
     t.bigint "reaction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "time"
+    t.bigint "time"
     t.index ["reaction_id"], name: "index_reaction_entries_on_reaction_id"
   end
 
