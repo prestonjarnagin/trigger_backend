@@ -44,7 +44,30 @@ RSpec.describe '/api/v1/reaction_entries' do
   end
 
   describe 'PATCH' do
-    it 'updates a reaction entry record' do
+    it 'updates an entire reaction entry record' do
+      timestamp = 1_550_095_808
+      reaction_1 = Reaction.create(name: 'Headache')
+      reaction_2 = Reaction.create(name: 'Upset Stomach')
+      reaction_entry = ReactionEntry.create(
+        reaction_id: reaction_1.id,
+        time: timestamp
+      )
+      timestamp += 30
+      request = {
+        time: timestamp,
+        reaction_id: reaction_2.id
+      }
+
+      patch "#{endpoint}/#{reaction_entry.id}", params: request
+
+      expect(ReactionEntry.count).to eq(1)
+      expect(ReactionEntry.first.time).to eq(timestamp)
+      expect(ReactionEntry.first.reaction_id).to eq(reaction_2.id)
+      status = JSON.parse(response.body)['status']
+      expect(status).to include("Record Updated")
+    end
+
+    it 'updates a reaction entry record with just a time' do
       timestamp = 1_550_095_808
       reaction = Reaction.create(name: 'Headache')
       reaction_entry = ReactionEntry.create(
@@ -60,6 +83,28 @@ RSpec.describe '/api/v1/reaction_entries' do
 
       expect(ReactionEntry.count).to eq(1)
       expect(ReactionEntry.first.time).to eq(timestamp)
+      expect(ReactionEntry.first.reaction_id).to eq(reaction.id)
+      status = JSON.parse(response.body)['status']
+      expect(status).to include("Record Updated")
+    end
+
+    it 'updates a reaction entry record with just a food_id' do
+      timestamp = 1_550_095_808
+      reaction_1 = Reaction.create(name: 'Headache')
+      reaction_2 = Reaction.create(name: 'Upset Stomach')
+      reaction_entry = ReactionEntry.create(
+        reaction_id: reaction_1.id,
+        time: timestamp
+      )
+
+      request = {
+        reaction_id: reaction_2.id
+      }
+      patch "#{endpoint}/#{reaction_entry.id}", params: request
+
+      expect(ReactionEntry.count).to eq(1)
+      expect(ReactionEntry.first.time).to eq(timestamp)
+      expect(ReactionEntry.first.reaction_id).to eq(reaction_2.id)
       status = JSON.parse(response.body)['status']
       expect(status).to include("Record Updated")
     end
@@ -75,7 +120,7 @@ RSpec.describe '/api/v1/reaction_entries' do
       )
 
       delete "#{endpoint}/#{reaction_entry.id}"
-      
+
       expect(ReactionEntry.count).to eq(0)
       status = JSON.parse(response.body)['status']
       expect(status).to include("Record Deleted")
