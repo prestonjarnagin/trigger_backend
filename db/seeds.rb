@@ -100,3 +100,33 @@ while (n<60)
   date += seconds_in_a_day
   n +=1
 end
+
+#hot sauce entries
+date = 1_546_354_800 + 3_600 #Jan 1 2019
+n= 0
+seconds_in_a_day = 86_400
+while (n<30)
+  FoodEntry.create(food_id: food_11.id, time: date)
+  date += seconds_in_a_day*2
+  n +=1
+end
+
+#bread entry
+date = 1_546_354_800 + 7_200 #Jan 1 2019
+n= 0
+seconds_in_a_day = 86_400
+while (n<15)
+  FoodEntry.create(food_id: food_10.id, time: date)
+  date += seconds_in_a_day*4
+  n +=1
+end
+
+#Drowzy entry
+date = 1_546_354_800 + 9_000 #Jan 1 2019
+n= 0
+seconds_in_a_day = 86_400
+while (n<20)
+  ReactionEntry.create(reaction_id: reaction_3.id, time: date)
+  date += seconds_in_a_day*3
+  n +=1
+end
