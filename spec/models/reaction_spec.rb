@@ -10,8 +10,8 @@ RSpec.describe Reaction, type: :model do
   end
 
   describe 'Instance Methods' do
-      describe '.occurences' do
-        it 'returns number of occurences in the last 31_60 days' do
+      describe '.occurrences' do
+        it 'returns number of occurrences in the last 31_60 days' do
           reaction = Reaction.create(name: "Headache")
 
           now = Time.now.to_i
@@ -30,7 +30,7 @@ RSpec.describe Reaction, type: :model do
             last_30_days: 4,
             last_31_to_60_days: 2
           }
-          expect(reaction.occurences).to eq(expected)
+          expect(reaction.occurrences).to eq(expected)
       end
     end
 
