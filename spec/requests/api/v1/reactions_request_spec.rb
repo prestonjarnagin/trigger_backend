@@ -48,10 +48,10 @@ RSpec.describe '/api/v1/reactions' do
       expect(data['foods'][1]['name']).to eq('Coffee')
       expect(data['foods'][0]['frequency']).to eq(1.0)
       expect(data['foods'][1]['frequency']).to eq(0.67)
-      expect(data['occurences']['last_7_days']).to eq(2)
-      expect(data['occurences']['last_15_days']).to eq(2)
-      expect(data['occurences']['last_30_days']).to eq(2)
-      expect(data['occurences']['last_31_to_60_days']).to eq(0)
+      expect(data['occurrences']['last_7_days']).to eq(2)
+      expect(data['occurrences']['last_15_days']).to eq(2)
+      expect(data['occurrences']['last_30_days']).to eq(2)
+      expect(data['occurrences']['last_31_to_60_days']).to eq(0)
     end
   end
 

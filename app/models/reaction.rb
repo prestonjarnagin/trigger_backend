@@ -27,19 +27,19 @@ class Reaction < ApplicationRecord
     end
   end
 
-  def occurences
+  def occurrences
     {
-      last_7_days: get_occurences_for_range(now - (seconds_in_a_day*7)..now),
-      last_15_days: get_occurences_for_range(now - (seconds_in_a_day*15)..now),
-      last_30_days: get_occurences_for_range(now - (seconds_in_a_day*30)..now),
+      last_7_days: get_occurrences_for_range(now - (seconds_in_a_day*7)..now),
+      last_15_days: get_occurrences_for_range(now - (seconds_in_a_day*15)..now),
+      last_30_days: get_occurrences_for_range(now - (seconds_in_a_day*30)..now),
       last_31_to_60_days:
-        get_occurences_for_range(now - (seconds_in_a_day*60) .. (now - (seconds_in_a_day*30)))
+        get_occurrences_for_range(now - (seconds_in_a_day*60) .. (now - (seconds_in_a_day*30)))
     }
   end
 
   private
 
-  def get_occurences_for_range(date_range)
+  def get_occurrences_for_range(date_range)
       ReactionEntry
       .where(time: date_range)
       .where(reaction_id: self.id)
