@@ -19,12 +19,14 @@ class Reaction < ApplicationRecord
       reaction_counts[food_id] += 1
     end
 
-    array = []
     results = reaction_counts.map do |food_id, reaction_count|
       frequency = (reaction_count.to_f / FoodEntry.where(food_id: food_id).count).round(2)
       name = Food.find(food_id).name
       ReactionSummary.new(food_id, name, frequency)
     end
+    results.sort_by do |food|
+      food.frequency
+    end.reverse
   end
 
   def occurrences

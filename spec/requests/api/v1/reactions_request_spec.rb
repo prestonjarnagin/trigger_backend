@@ -22,8 +22,8 @@ RSpec.describe '/api/v1/reactions' do
       reaction = Reaction.create(name: "Headache")
 
       now = Time.now.to_i
-      food_1 = Food.create(name: "Hot Dog")
       food_2 = Food.create(name: "Coffee")
+      food_1 = Food.create(name: "Hot Dog")
       food_3 = Food.create(name: "Hamburger")
       food_entry_1 = FoodEntry.create(food_id: food_1.id, time: now)
       food_entry_3  = FoodEntry.create(food_id: food_2.id, time: now)
