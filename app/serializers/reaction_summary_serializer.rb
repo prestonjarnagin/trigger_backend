@@ -8,7 +8,7 @@ class ReactionSummarySerializer
     {
       name: @reaction_summary_data[:name],
       foods: @reaction_summary_data[:foods],
-      occurences: @reaction_summary_data[:occurences]
+      occurrences: @reaction_summary_data[:occurrences]
     }
   end
 

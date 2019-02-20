@@ -457,8 +457,8 @@ components:
           description: An array of food records that are associated with the requested reaction
           items:
             $ref: '#/components/schemas/SingleReaction_foods'
-        occurences:
-          $ref: '#/components/schemas/SingleReaction_occurences'
+        occurrences:
+          $ref: '#/components/schemas/SingleReaction_occurrences'
       example:
         name: Upset Stomach
         foods:
@@ -531,7 +531,7 @@ components:
         - id: 52
           name: Orange
           frequency: 0.14
-        occurences:
+        occurrences:
           last_7_days: 5
           last_15_days: 5
           last_30_days: 5
@@ -639,7 +639,7 @@ components:
           type: number
           description: The correlation strength between the reaction and this food. Ranges from 0.01 to 1.0. Foods that score a 0 do not get returned. Calculated by dividing the number of times a food has been eaten within a 24 hour window prior to a reaction and the number of times that food has ever been eaten.
           format: float
-    SingleReaction_occurences:
+    SingleReaction_occurrences:
       type: object
       properties:
         last_7_days:
