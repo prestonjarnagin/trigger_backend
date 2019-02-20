@@ -206,7 +206,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_1'
+                type: object
+                properties:
+                  time:
+                    type: integer
+                    example: 1550691445
+                    description: Unix timestamp
+                  reaction_id:
+                    type: integer
+                    example: 7
+                    description: The new reaction id
     delete:
       tags:
       - reaction-entry
@@ -223,7 +232,7 @@ paths:
       responses:
         204:
           description: Reaction entry deleted successfully
-  /food_entry/{id}:
+  /food_entries/{id}:
     put:
       tags:
       - food-entry
@@ -243,8 +252,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/body'
-        required: true
+              type: object
+              properties:
+                time:
+                  type: integer
+                  example: 1550691445
+                food_id:
+                  type: integer
+                  example: 7
+
+        required: false
       responses:
         200:
           description: Food entry updated successfully
