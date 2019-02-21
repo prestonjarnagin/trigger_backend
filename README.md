@@ -19,6 +19,12 @@ After cloning this repo...
 #### Endpoints
 Endpoints are documented in OpenAPI 3.0 and can be found in the `openapi.yaml` file in this projects root directory
 
+#### Contributors
+ - [Quinn Krug](https://github.com/Q-Win)
+ - [Preston Jarnagin](https://github.com/prestonjarnagin)
+ - [Michael Gatewood](https://github.com/mngatewood)
+ - [Cesar Jolibois](https://github.com/Diazblack)
+
 #### Built With
 - Ruby & Rails
 - RSpec
